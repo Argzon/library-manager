@@ -3,6 +3,12 @@ extends layout
 block content
     h1 Update Book
 
+    if (errors)
+        h2.error Ooooops! 
+        ul.error  
+            each error in errors  
+                li= error.message 
+
     form(action=`/books/${book.id}`, method="POST")
         p 
             label(for='title') Title

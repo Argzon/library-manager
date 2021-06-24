@@ -30,12 +30,12 @@ router.get('/', asyncHandler(async (req, res) => {
 // Shows the full list of books
 router.get('/books', asyncHandler(async (req, res, next) => {
   const books = await Book.findAll();
-  res.render('index', {books});
+  res.render('index', {books, title: "Books"});
 }));
 
 // Shows the create new book form
 router.get('/books/new', asyncHandler(async (req, res, next) => {
-  res.render('new-book');
+  res.render('new-book', {title: "Create New Book"});
 }));
 
 // Posts a new book to the database
@@ -58,7 +58,7 @@ router.post('/books/new', asyncHandler(async (req, res, next) => {
 router.get('/books/:id', asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   if(book) {
-    res.render('update-book', {book});
+    res.render('update-book', {book, title: `${book.title}`});
   } else {
     errorHandler(404, "Page cannot be found!");
   }

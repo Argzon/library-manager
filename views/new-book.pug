@@ -4,10 +4,10 @@ block content
     h1 New Book
 
     if (errors)
-        h2 Ooooops! 
+        h2.error Ooooops! 
         ul.error  
-        each error in errors  
-            li= error.message 
+            each error in errors  
+                li= error.message 
 
     form(action="/books/new", method="POST")
         p 
