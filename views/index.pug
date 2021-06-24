@@ -13,9 +13,10 @@ block content
         th Genre
         th Year
     tbody
-      tr
-        td
-          a(href="/book_detail.html") The Hunger Games
-        td Suzzanne Collins
-        td Fantasy
-        td 2008
+      each book in books
+        tr
+          td
+            a(href=`/books/${book.id}`) #{book.title}
+          td= book.title
+          td= book.genre
+          td= book.year
