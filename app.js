@@ -43,6 +43,14 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  const err = new Error();
+  err.status = 404;
+  err.message = "Sorry! We couldn't find what you were looking for!";
+  res.status(404).render("page-not-found", { error: err });
+});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -52,6 +60,19 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+//my Global Error Handler
+app.use((err, req, res, next) => {
+  if (err.status === 404) {
+    res.status(404).render("page-not-found", { error: err });
+  } else {
+    err.message = err.message || "Something failed!!";
+    err.status = err.status || 500;
+    console.log(err.message, err.status);
+    res.status(500).render("error", { error: err });
+  }
+  console.log(err.message);
 });
 
 module.exports = app;
