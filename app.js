@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 var app = express();
 
 const sequelize = new Sequelize({

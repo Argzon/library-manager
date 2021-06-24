@@ -3,8 +3,13 @@ extends layout
 block content
   h1 Books
 
-  p
-    a.button(href="/books/new") Create New Book
+  .header
+    form.search(action="/books/search")
+      input.searchIn(type="search" name="term" placeholder="Find a book")
+      input.search(type="submit" value="Search")
+
+    p.create-new-book
+      a.button(href="/books/new") Create New Book
   table
     thead
       tr
@@ -20,3 +25,8 @@ block content
           td= book.title
           td= book.genre
           td= book.year
+
+  div.pagination
+    if (!term )
+      a.button(href=`/books?page=${+page - 1 }`).prev Prev 
+      a.button(href=`/books?page=${+page + 1}`).next Next 
