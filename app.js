@@ -3,11 +3,27 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const Sequelize = require('sequelize');
 var app = express();
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'library.db'
+});
+
+//sync db and authenticate connecton to db
+(async () => {
+  await sequelize.sync();
+  try {
+    await sequelize.authenticate();
+    console.log("We have a successful connection");
+  } catch (error) {
+    console.error("Trouble connection to the database: ", error);
+  }
+})();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
